@@ -43,17 +43,17 @@ CREATE TABLE IF NOT EXISTS Bugs
 
 CREATE TABLE IF NOT EXISTS Reporters
 (
-	  ReporterID	INTEGER
-	, SuccessRate	REAL	
-	, PRIMARY KEY	(ReporterID)
+	  ReporterID		INTEGER
+	, SuccessReporter	REAL	
+	, PRIMARY KEY		(ReporterID)
 )
 ;
 
 CREATE TABLE IF NOT EXISTS Assignees
 (
-	  AssigneeID	INTEGER
-	, SuccessRate	REAL	
-	, PRIMARY KEY	(AssigneeID)
+	  AssigneeID		INTEGER
+	, SuccessAssignee	REAL	
+	, PRIMARY KEY		(AssigneeID)
 )
 ;
 
