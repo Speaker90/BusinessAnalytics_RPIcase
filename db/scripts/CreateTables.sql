@@ -1,8 +1,9 @@
 CREATE TABLE IF NOT EXISTS BugsTemp1
 (
 	  BugID		INTEGER
-	, Time		INTEGER
 	, Outcome 	TEXT NOT NULL	
+	, Opening	INTEGER NOT NULL
+	, Closing	INTEGER NOT NULL
 	, ReporterID	INTEGER NOT NULL
 	, AssigneeID	INTEGER NOT NULL
 	, PRIMARY KEY	(BugID)
@@ -12,7 +13,7 @@ CREATE TABLE IF NOT EXISTS BugsTemp1
 CREATE TABLE IF NOT EXISTS BugsTemp2
 (
 	  BugID		INTEGER
-	, CC		INTEGER
+	, CC		INTEGER NOT NULL
 	, PRIMARY KEY	(BugID)
 )
 ;
@@ -20,8 +21,8 @@ CREATE TABLE IF NOT EXISTS BugsTemp2
 CREATE TABLE IF NOT EXISTS BugsTemp3
 (
 	  BugID		INTEGER
-	, Product	TEXT 
-	, OS		TEXT
+	, Product	TEXT NOT NULL
+	, OS		TEXT NOT NULL
 	, PRIMARY KEY	(BugID)
 )
 ;
@@ -30,11 +31,13 @@ CREATE TABLE IF NOT EXISTS Bugs
 (
 	  BugID		INTEGER
 	, Outcome 	TEXT NOT NULL	
+	, Opening	INTEGER NOT NULL
+	, Closing	INTEGER NOT NULL
 	, ReporterID	INTEGER NOT NULL
 	, AssigneeID	INTEGER NOT NULL
-	, CC		INTEGER
-	, Product	TEXT 
-	, OS		TEXT
+	, CC		INTEGER NOT NULL
+	, Product	TEXT NOT NULL 
+	, OS		TEXT NOT NULL
 	, FOREIGN KEY	(ReporterID) REFERENCES Reporters (ReporterID)
 	, FOREIGN KEY	(AssigneeID) REFERENCES Assignees (AssigneeID)
 	, PRIMARY KEY	(BugID)
@@ -44,7 +47,7 @@ CREATE TABLE IF NOT EXISTS Bugs
 CREATE TABLE IF NOT EXISTS Reporters
 (
 	  ReporterID		INTEGER
-	, SuccessReporter	REAL	
+	, SuccessReporter	REAL NOT NULL	
 	, PRIMARY KEY		(ReporterID)
 )
 ;
@@ -52,7 +55,7 @@ CREATE TABLE IF NOT EXISTS Reporters
 CREATE TABLE IF NOT EXISTS Assignees
 (
 	  AssigneeID		INTEGER
-	, SuccessAssignee	REAL	
+	, SuccessAssignee	REAL NOT NULL	
 	, PRIMARY KEY		(AssigneeID)
 )
 ;

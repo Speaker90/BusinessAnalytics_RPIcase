@@ -1,12 +1,13 @@
 .mode column
 .header on
 
-INSERT INTO BugsTemp1 (BugID,Time,Outcome,ReporterID,AssigneeID)
+INSERT INTO BugsTemp1 (BugID,Outcome,Opening,Closing,ReporterID,AssigneeID)
 	
 SELECT
 	  reports.id 			AS BugID	
-	, reports.opening		AS Time
 	, reports.current_resolution	AS Outcome
+	, reports.opening		AS Opening 
+	, temp.Closing			AS Closing
 	, reports.reporter		AS ReporterID	
 	, temp.AssigneeID		AS AssigneeID	
 
@@ -17,7 +18,7 @@ INNER JOIN
 	(
 	SELECT 
 	  resolution.id		
-	, MAX(resolution."when")
+	, MAX(resolution."when")	AS Closing
 	, resolution.who		AS AssigneeID
 
 	FROM resolution
@@ -75,7 +76,7 @@ INNER JOIN
 		(
 			product.id = BugsTemp1.BugID
 		AND     product.who =BugsTemp1.ReporterID
-		AND 	product."when" = BugsTemp1.Time
+		AND 	product."when" = BugsTemp1.Opening
 	)	
 	) temp	
 
@@ -93,6 +94,8 @@ INSERT INTO Bugs
 SELECT 
 	  BugsTemp1.BugID
 	, BugsTemp1.Outcome
+	, BugsTemp1.Opening
+	, BugsTemp1.Closing
 	, BugsTemp1.ReporterID
 	, BugsTemp1.AssigneeID
 	, temp.CC
