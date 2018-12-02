@@ -29,6 +29,7 @@ INNER JOIN
 
 ON reports.id = temp.id
 
+
 WHERE (
 	(  reports.current_status = "RESOLVED"
 	OR reports.current_status = "CLOSED"
@@ -37,13 +38,30 @@ WHERE (
 )	
 ;
 
-INSERT INTO BugsTemp2(BugID,CC)
+INSERT INTO BugsTemp2(BugID,Priority,CC)
 
 SELECT 
 	  cc.id			AS BugsID		
+	, temp.Priority 	AS Priority
 	, COUNT(cc.what)	AS CC
 
 FROM cc
+
+INNER JOIN
+
+	(
+	SELECT 
+	  priority.id
+	, priority.what 		AS Priority	
+	, MAX(priority."when")
+
+	FROM priority
+
+	GROUP BY
+	 priority.id
+	) temp
+
+ON cc.id = temp.id
 
 INNER JOIN BugsTemp1
 	ON cc.id = BugsTemp1.BugID
@@ -51,6 +69,7 @@ INNER JOIN BugsTemp1
 GROUP BY
 	cc.id
 ;
+.output stdout
 
 INSERT INTO BugsTemp3 (BugID,Product,OS)
 
@@ -98,6 +117,7 @@ SELECT
 	, BugsTemp1.Closing
 	, BugsTemp1.ReporterID
 	, BugsTemp1.AssigneeID
+	, temp.Priority
 	, temp.CC
 	, temp.Product
 	, temp.OS
@@ -108,6 +128,7 @@ INNER JOIN
 	(
 	SELECT 
 		  BugsTemp2.BugID
+		, BugsTemp2.Priority
 		, BugsTemp2.CC
 		, BugsTemp3.Product
 		, BugsTemp3.OS
