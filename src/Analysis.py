@@ -16,6 +16,7 @@ from sklearn.metrics import roc_curve, auc
 from keras.models import Sequential
 from keras.layers import Dense,Dropout
 
+
 conn = None
 
 
@@ -27,7 +28,7 @@ conn.close
 
 N=df.shape[0]
 labels = np.zeros((N,1))
-features = np.zeros((N,7))
+features = np.zeros((N,10))
 
 def os_replace(dict_os, text):
 
@@ -61,7 +62,12 @@ for i,row in df.iterrows():
 features[:,5] = df['SuccessAssignee']
 features[:,6] = df['SuccessReporter']
 
+components = df["Component"].unique()
+dict_component = dict(zip(components, range(len(components))))
+features[:,7]=df['Component'].map(dict_component)
 
+features[:,8]=df['Social']
+features[:,9]=np.where(df["ReporterID"]==df["AssigneeID"],1,0)
 print(features)
 features_norm=normalize(features,axis=0)
 print(features_norm)
@@ -109,7 +115,7 @@ SVM = SVC(gamma='auto', probability=True).fit(x_train,y_train)
 print(SVM.score(x_cv,y_cv))
 
 model = Sequential()
-model.add(Dense(128, input_dim=7, activation='relu'))
+model.add(Dense(128, input_dim=10, activation='relu'))
 model.add(Dropout(0.5))
 model.add(Dense(64, activation='relu'))
 model.add(Dropout(0.5))
