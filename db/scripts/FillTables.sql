@@ -69,7 +69,6 @@ INNER JOIN BugsTemp1
 GROUP BY
 	cc.id
 ;
-.output stdout
 
 INSERT INTO BugsTemp3 (BugID,Product,OS)
 
@@ -108,6 +107,45 @@ ON
 
 ;
 
+INSERT INTO BugsTemp4(BugID,Component,Social)
+
+SELECT 
+	  temp1.BugID			AS BugID
+	, temp1.Component 		AS Component
+	, temp1.Social			AS Social
+
+FROM
+	(	
+	SELECT 
+		  BugsTemp1.BugID	AS BugID		
+		, temp.Component 	AS Component
+		, BugsTemp1.AssigneeID
+		, BugsTemp1.ReporterID
+		, COUNT(*)		AS Social		
+
+	FROM BugsTemp1
+
+	INNER JOIN
+
+		(
+		SELECT 
+		  component.id
+		, component.what	AS Component	
+		, MAX(component."when")
+
+		FROM component
+
+		GROUP BY
+		 component.id
+		) temp
+
+	ON BugsTemp1.BugID = temp.id
+
+	GROUP BY
+		  BugsTemp1.AssigneeID, BugsTemp1.ReporterID
+	) temp1	
+;
+
 INSERT INTO Bugs
 
 SELECT 
@@ -121,6 +159,8 @@ SELECT
 	, temp.CC
 	, temp.Product
 	, temp.OS
+	, temp.Component
+	, temp.Social
 
 FROM BugsTemp1
 
@@ -132,12 +172,18 @@ INNER JOIN
 		, BugsTemp2.CC
 		, BugsTemp3.Product
 		, BugsTemp3.OS
+		, BugsTemp4.Component
+		, BugsTemp4.Social
 
 	FROM BugsTemp2
 		
 	INNER JOIN BugsTemp3
 	ON
 		BugsTemp2.BugID = BugsTemp3.BugID
+
+	INNER JOIN BugsTemp4
+	ON
+		BugsTemp2.BugID = BugsTemp4.BugID
 	) temp
 
 ON
@@ -179,7 +225,7 @@ FROM
 		ReporterID
 	) temp
 ;
-
+/*
 DROP TABLE BugsTemp1;
 DROP TABLE BugsTemp2;
 DROP TABLE BugsTemp3;
