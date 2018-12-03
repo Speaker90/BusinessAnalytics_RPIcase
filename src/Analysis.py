@@ -100,25 +100,30 @@ print("[INFO] Start training the models..")
 
 models = []
 
-print("[INFO] Train Naive Bayes..")
+print("\t1. Train Naive Bayes..")
 NB = GaussianNB().fit(x_train, y_train)
 models.append(["Naive Bayes", NB])
 
-print("[INFO] Train Logistic Regression..")
-LM = LogisticRegression(random_state=29,solver='lbfgs').fit(x_train,y_train)
+print("\t2. Train Logistic Regression..")
+LR = LogisticRegression(random_state=29,solver='lbfgs').fit(x_train,y_train)
+models.append(["Logistic Regression", LR])
 
-print("[INFO] Train Random Forest..")
-RF = RandomForestClassifier(n_estimators=1000, max_depth=30, random_state=29).fit(x_train, y_train)
+print("\t3. Train Random Forest..")
+RF = RandomForestClassifier(n_estimators=1000, max_depth=13, random_state=29).fit(x_train, y_train)
+models.append(["Random Forest", RF])
 
-print("[INFO] Train Boosting Classifier..")
-GB = GradientBoostingClassifier(n_estimators= 1000, max_depth= 5, random_state= 29).fit(x_train,y_train)
+print("\t4. Train Boosting Classifier..")
+GB = GradientBoostingClassifier(n_estimators= 1000, max_depth= 7, random_state= 29).fit(x_train,y_train)
+models.append(["Boosting Classifier", GB])
 
-print("[INFO] Train Support Vector Machine..")
-SVM = SVC(gamma='auto', probability=True).fit(x_train,y_train)
+print("\t5. Train Support Vector Machine..")
+SVM = SVC(gamma='auto', probability=True, C=1000).fit(x_train,y_train)
+models.append(["Support Vector Machine", SVM])
 
-print("[INFO] Train Neural Network..")
-model = SetUpNeuralNetwork(features.shape[1])
-NN = model.fit(x_train, y_train, epochs=20, batch_size=128, verbose=0)
+print("\t6. Train Neural Network..")
+NN = SetUpNeuralNetwork(features.shape[1])
+NN.fit(x_train, y_train, epochs=25, batch_size=128, verbose=0)
+models.append(["Neural Network", NN])
 
 
 ######################################################################################################
@@ -126,9 +131,16 @@ NN = model.fit(x_train, y_train, epochs=20, batch_size=128, verbose=0)
 
 print("[INFO]  crossvalidation accuracy..")
 
-models[0].extend(NB.score(x_cv,y_cv))
+models[0].append(models[0][1].score(x_cv,y_cv))
+models[1].append(models[1][1].score(x_cv,y_cv))
+models[2].append(models[2][1].score(x_cv,y_cv))
+models[3].append(models[3][1].score(x_cv,y_cv))
+models[4].append(models[4][1].score(x_cv,y_cv))
+models[5].append(models[5][1].evaluate(x_cv, y_cv, batch_size=128,verbose=0)[1])
 
-print("{%s} accuracy on the cross-validation set: {:.4f}%".format(models[0][0],models[0][2]*100))
+for model in models:
+    print("The accuracy of the {} on the cross-validation set is:\t\t{:.4f}%".format(model[0],model[2]*100))
+
 #print(model.evaluate(x_cv, y_cv, batch_size=128))
 #print(NB.score(x_cv,y_cv))
 #prob = NB.predict_proba(x_cv)[:,1]

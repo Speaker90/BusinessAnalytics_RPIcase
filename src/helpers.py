@@ -6,7 +6,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from keras.models import Sequential
 from keras.layers import Dense,Dropout
-from keras.optimizers import SGD
 
 def FromDBtoDF(dbPath,query):
     """This functions uses the supplied query to retrieve data from a DB and stores it in a pandas dataframe."""
@@ -70,7 +69,6 @@ def SetUpNeuralNetwork(featureCount):
     model.add(Dropout(0.5))
     model.add(Dense(1, activation='sigmoid'))
 
-    sgd = SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
-    model.compile(loss='binary_crossentropy', optimizer=sgd, metric=['accuracy'])
-
+    model.compile(loss='binary_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
+ 
     return model
