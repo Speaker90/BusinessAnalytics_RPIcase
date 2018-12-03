@@ -1,3 +1,12 @@
+/*
+	Create all the temporary and final tables for the Bugs.db
+
+	Author:	Florian Spychiger
+	Date:	02 December 2018
+
+	Stored in scripts/CreateTables.sql
+*/;
+
 CREATE TABLE IF NOT EXISTS BugsTemp1
 (
 	  BugID		INTEGER

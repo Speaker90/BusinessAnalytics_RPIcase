@@ -225,10 +225,11 @@ FROM
 		ReporterID
 	) temp
 ;
-/*
+
 DROP TABLE BugsTemp1;
 DROP TABLE BugsTemp2;
 DROP TABLE BugsTemp3;
+DROP TABLE BugsTemp4;
 DROP TABLE assigned_to;
 DROP TABLE bug_status;
 DROP TABLE cc;

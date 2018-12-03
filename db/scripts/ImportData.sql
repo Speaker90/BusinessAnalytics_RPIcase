@@ -1,3 +1,12 @@
+/*
+	Import all the raw data from the Eclipse Bugzilla dataset.
+
+	Author:	Florian Spychiger
+	Date:	02 December 2018
+
+	Stored in scripts/ImportData.sql
+*/;
+
 .mode csv
 
 .import ../data/Eclipse/assigned_to.csv assigned_to
