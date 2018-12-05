@@ -6,18 +6,38 @@ from helpers import FromDBtoDF
 from helpers import FeatureEncoder
 from helpers import FuzzyFeatureEncoder
 from helpers import SetUpNeuralNetwork
+from helpers import CalculateAccuracy
+from helpers import PrintAccuracy
+from helpers import PlotROCs
+import argparse
+import os
+import sys
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import normalize
+from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.svm import SVC
-from sklearn.metrics import roc_curve, auc
 from keras.models import Sequential
+
+######################################################################################################
+#Preparation
+
+#disable annoying tensorflow AVX/FMA warning
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
+#define argument parser and evaluate optional arguments
+ap = argparse.ArgumentParser()
+ap.add_argument("-c", "--calibration",action='store_true',help="enable calibration mode")
+args = ap.parse_args()
+if args.calibration:
+    print("CALIBRATION MODE TURNED ON, USING CROSS-VALIDATION SET")
+
 
 ######################################################################################################
 #1. Data import
@@ -81,8 +101,9 @@ features[:,8]=df['Social']
 features[:,9]=np.where(df["ReporterID"]==df["AssigneeID"],1,0)
 
 #now, we normalize the features
-features_norm=normalize(features,axis=0)
-
+#features_norm=normalize(features,axis=0)
+std_scale = StandardScaler().fit(features)
+features_norm = std_scale.transform(features)
 #split up data into training-crossvalidation-test sets
 x_train, x_test, y_train, y_test = train_test_split(features_norm, labels, test_size=0.5, random_state=29)
 x_cv, x_test, y_cv, y_test = train_test_split(x_test,y_test, test_size=0.5, random_state=29)
@@ -117,7 +138,7 @@ GB = GradientBoostingClassifier(n_estimators= 1000, max_depth= 7, random_state= 
 models.append(["Boosting Classifier", GB])
 
 print("\t5. Train Support Vector Machine..")
-SVM = SVC(gamma='auto', probability=True, C=1000).fit(x_train,y_train)
+SVM = SVC(gamma='auto', probability=True, C=100).fit(x_train,y_train)
 models.append(["Support Vector Machine", SVM])
 
 print("\t6. Train Neural Network..")
@@ -129,29 +150,28 @@ models.append(["Neural Network", NN])
 ######################################################################################################
 #4. Cross-validate the Models 
 
-print("[INFO]  crossvalidation accuracy..")
+if args.calibration:
+    print("[INFO]  crossvalidation accuracy..")
 
-models[0].append(models[0][1].score(x_cv,y_cv))
-models[1].append(models[1][1].score(x_cv,y_cv))
-models[2].append(models[2][1].score(x_cv,y_cv))
-models[3].append(models[3][1].score(x_cv,y_cv))
-models[4].append(models[4][1].score(x_cv,y_cv))
-models[5].append(models[5][1].evaluate(x_cv, y_cv, batch_size=128,verbose=0)[1])
+    #calcuate accuracy
+    models = CalculateAccuracy(models,x_cv,y_cv)
 
-for model in models:
-    print("The accuracy of the {} on the cross-validation set is:\t\t{:.4f}%".format(model[0],model[2]*100))
+    #print accuracy
+    PrintAccuracy('Crossvalidation Set',models)
 
-#print(model.evaluate(x_cv, y_cv, batch_size=128))
-#print(NB.score(x_cv,y_cv))
-#prob = NB.predict_proba(x_cv)[:,1]
+    #we finish here
+    sys.exit()
 
-#fpr, tpr, thresholds = roc_curve(y_cv, prob)
-#roc_auc = auc(fpr, tpr)
-#plt.plot(fpr, tpr, lw=1, alpha=0.3,
-#             label='ROC fold (AUC = %0.2f)' % roc_auc)
-#prob = LM.predict_proba(x_cv)[:,1]
 
-#fpr, tpr, thresholds = roc_curve(y_cv, prob)
-#roc_auc = auc(fpr, tpr)
-#plt.plot(fpr, tpr, lw=1, alpha=0.3,
-#             label='ROC fold (AUC = %0.2f)' % roc_auc)
+######################################################################################################
+#5. Evaluate the Models 
+
+print("[INFO]  test set accuracy..")
+
+#calcuate accuracy
+models = CalculateAccuracy(models,x_test,y_test)
+
+#print accuracy
+PrintAccuracy('Test Set',models)
+
+PlotROCs(models,x_test,y_test)
