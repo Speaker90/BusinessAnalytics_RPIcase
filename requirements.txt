@@ -1,0 +1,13 @@
+#These packages are required by the project. You can install them by invoking pip install -r requirements.txt.
+
+argparse
+pandas
+numpy
+matplotlib
+sklearn
+tensorflow
+scipy
+pillow
+h5py
+keras
+

@@ -105,12 +105,12 @@ def PlotROCs(models,x,y):
         prob = models[i][1].predict_proba(x)[:,1]
         fpr, tpr, thresholds = roc_curve(y, prob)
         roc_auc = auc(fpr, tpr)
-        plt.plot(fpr, tpr, lw=2, alpha=0.3,label='{:<25s} {:>7s}{:0.4f})'.format(models[i][0],'(AUC = ',roc_auc))
+        plt.plot(fpr, tpr, lw=2, alpha=0.3,label='{} (AUC = {:0.4f})'.format(models[5][0],roc_auc))
 
     prob = models[5][1].predict(x)
     fpr, tpr, thresholds = roc_curve(y, prob)
     roc_auc = auc(fpr, tpr)
-    plt.plot(fpr, tpr, lw=2, alpha=0.3,label='{:<25s} {:>7s}{:0.4f})'.format(models[5][0],'(AUC = ',roc_auc))
+    plt.plot(fpr, tpr, lw=2, alpha=0.3,label='{} (AUC = {:0.4f})'.format(models[5][0],roc_auc))
 
     #format plot
     plt.plot([0, 1], [0, 1], 'k--', lw=2)

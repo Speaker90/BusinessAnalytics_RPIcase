@@ -2,6 +2,7 @@
 # Script:   Analysis.py
 # Author:   Florian Spychiger
 # Date:     02 December 2018
+
 from helpers import FromDBtoDF
 from helpers import FeatureEncoder
 from helpers import FuzzyFeatureEncoder
@@ -100,12 +101,12 @@ features[:,8]=df['Social']
 #the 10th feature is an indicator whether the reporter fixes the bug himself
 features[:,9]=np.where(df["ReporterID"]==df["AssigneeID"],1,0)
 
-#now, we normalize the features
-#features_norm=normalize(features,axis=0)
+#now, we standardize the features
 std_scale = StandardScaler().fit(features)
-features_norm = std_scale.transform(features)
+features_std = std_scale.transform(features)
+
 #split up data into training-crossvalidation-test sets
-x_train, x_test, y_train, y_test = train_test_split(features_norm, labels, test_size=0.5, random_state=29)
+x_train, x_test, y_train, y_test = train_test_split(features_std, labels, test_size=0.5, random_state=29)
 x_cv, x_test, y_cv, y_test = train_test_split(x_test,y_test, test_size=0.5, random_state=29)
 
 #flatten the labels
@@ -117,7 +118,7 @@ y_test = y_test.flatten()
 ######################################################################################################
 #3. Training the Models 
 
-print("[INFO] Start training the models..")
+print("[INFO] Training the models..")
 
 models = []
 
@@ -130,20 +131,20 @@ LR = LogisticRegression(random_state=29,solver='lbfgs').fit(x_train,y_train)
 models.append(["Logistic Regression", LR])
 
 print("\t3. Train Random Forest..")
-RF = RandomForestClassifier(n_estimators=1000, max_depth=13, random_state=29).fit(x_train, y_train)
+RF = RandomForestClassifier(n_estimators=1000, max_depth=12, random_state=29).fit(x_train, y_train)
 models.append(["Random Forest", RF])
 
 print("\t4. Train Boosting Classifier..")
-GB = GradientBoostingClassifier(n_estimators= 1000, max_depth= 7, random_state= 29).fit(x_train,y_train)
+GB = GradientBoostingClassifier(n_estimators= 1000, max_depth= 9, random_state= 29).fit(x_train,y_train)
 models.append(["Boosting Classifier", GB])
 
 print("\t5. Train Support Vector Machine..")
-SVM = SVC(gamma='auto', probability=True, C=100).fit(x_train,y_train)
+SVM = SVC(gamma='auto', probability=True, C=0.975).fit(x_train,y_train)
 models.append(["Support Vector Machine", SVM])
 
 print("\t6. Train Neural Network..")
 NN = SetUpNeuralNetwork(features.shape[1])
-NN.fit(x_train, y_train, epochs=25, batch_size=128, verbose=0)
+NN.fit(x_train, y_train, epochs=100, batch_size=128, verbose=0)
 models.append(["Neural Network", NN])
 
 
@@ -151,7 +152,7 @@ models.append(["Neural Network", NN])
 #4. Cross-validate the Models 
 
 if args.calibration:
-    print("[INFO]  crossvalidation accuracy..")
+    print("[INFO]  Crossvalidation accuracy..")
 
     #calcuate accuracy
     models = CalculateAccuracy(models,x_cv,y_cv)
@@ -166,7 +167,7 @@ if args.calibration:
 ######################################################################################################
 #5. Evaluate the Models 
 
-print("[INFO]  test set accuracy..")
+print("[INFO]  Test set accuracy..")
 
 #calcuate accuracy
 models = CalculateAccuracy(models,x_test,y_test)
@@ -174,4 +175,5 @@ models = CalculateAccuracy(models,x_test,y_test)
 #print accuracy
 PrintAccuracy('Test Set',models)
 
+#plot the roc-curves
 PlotROCs(models,x_test,y_test)
