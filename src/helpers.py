@@ -7,6 +7,12 @@ import matplotlib.pyplot as plt
 from keras.models import Sequential
 from keras.layers import Dense,Dropout
 from sklearn.metrics import roc_curve, auc
+from numpy.random import seed
+seed(29)
+import random as rn
+rn.seed(29)
+from tensorflow import set_random_seed
+set_random_seed(29)
 
 def FromDBtoDF(dbPath,query):
     """This functions uses the supplied query to retrieve data from a DB and stores it in a pandas dataframe."""
@@ -44,7 +50,7 @@ def FuzzyFeatureEncoder(df,header,dict):
     """Encodes the values of a df-header according to a fuzzy dictionary. Sets undefined values to 0."""
 
     encodedValues = np.zeros((df.shape[0],1))
-    #loop through the rows and match the dict keys
+    #oop through the rows and match the dict keys
     for i,row in df.iterrows():
         text = row[header]
         #create a regex from the dict
@@ -105,7 +111,7 @@ def PlotROCs(models,x,y):
         prob = models[i][1].predict_proba(x)[:,1]
         fpr, tpr, thresholds = roc_curve(y, prob)
         roc_auc = auc(fpr, tpr)
-        plt.plot(fpr, tpr, lw=2, alpha=0.3,label='{} (AUC = {:0.4f})'.format(models[5][0],roc_auc))
+        plt.plot(fpr, tpr, lw=2, alpha=0.3,label='{} (AUC = {:0.4f})'.format(models[i][0],roc_auc))
 
     prob = models[5][1].predict(x)
     fpr, tpr, thresholds = roc_curve(y, prob)
@@ -120,4 +126,5 @@ def PlotROCs(models,x,y):
     plt.ylabel('True Positive Rate')
     plt.title('Receiver Operating Characteristic of the Models')
     plt.legend(loc="lower right")
+    plt.savefig('../docs/Latex/pictures/rocs.png')
     plt.show()

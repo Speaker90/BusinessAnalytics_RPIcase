@@ -38,12 +38,12 @@ WHERE (
 )	
 ;
 
-INSERT INTO BugsTemp2(BugID,Priority,CC)
+INSERT INTO BugsTemp2(BugID,Assignments,CC)
 
 SELECT 
 	  cc.id			AS BugsID		
-	, temp.Priority 	AS Priority
-	, COUNT(cc.what)	AS CC
+	, temp.Assignments 	AS Assignments 
+	, (COUNT(cc.what)-1)	AS CC
 
 FROM cc
 
@@ -51,14 +51,13 @@ INNER JOIN
 
 	(
 	SELECT 
-	  priority.id
-	, priority.what 		AS Priority	
-	, MAX(priority."when")
+	  assigned_to.id
+	, COUNT(*)		AS Assignments
 
-	FROM priority
+	FROM assigned_to
 
 	GROUP BY
-	 priority.id
+	 assigned_to.id
 	) temp
 
 ON cc.id = temp.id
@@ -155,7 +154,7 @@ SELECT
 	, BugsTemp1.Closing
 	, BugsTemp1.ReporterID
 	, BugsTemp1.AssigneeID
-	, temp.Priority
+	, temp.Assignments
 	, temp.CC
 	, temp.Product
 	, temp.OS
@@ -168,7 +167,7 @@ INNER JOIN
 	(
 	SELECT 
 		  BugsTemp2.BugID
-		, BugsTemp2.Priority
+		, BugsTemp2.Assignments
 		, BugsTemp2.CC
 		, BugsTemp3.Product
 		, BugsTemp3.OS

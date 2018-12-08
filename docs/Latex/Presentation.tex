@@ -1,0 +1,145 @@
+\documentclass[xcolor=sgvnames,serifs,notes,compress,professionalfont]{beamer}
+\usepackage{amsfonts,amsmath}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetheme{CambridgeUS}
+\usecolortheme{whale}
+\setbeamercolor{frametitle}{fg=black}
+\beamertemplateballitem
+
+\begin{document}
+	
+\title{Predicting the bug fixing likelihood}
+\author{Florian Spychiger}
+\institute{University of Zurich}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\section{Introduction}
+\begin{frame}
+\frametitle{Roadmap}
+	\begin{enumerate}
+		\item Background
+		\item Problem Formulation \& Goal
+		\item Data
+		\item Solution Approach
+		\item Results
+	\end{enumerate}
+\end{frame}
+
+\section{Background}
+\begin{frame}
+The annual cost of software bugs is estimated at \$59.5 billion\footnote{P Bhattacharya and I Neamtiu, “Fine-­‐grained incremental learning and multi-­‐feature tossing graphs to improve bug triaging”, Software Maintenance (ICSM) 2010 (ieeexplore.ieee.org)}. For the Eclipse project, there are thousands of bugs reported. An efficent bug-triaging can help developers to focus their resources and thus, save companies a lot of money. 
+\frametitle{Background Information}
+\end{frame}
+
+\section{Problem Formulation \& Goal}
+\begin{frame}
+\frametitle{Problem Formulation \& Goal}
+\begin{alertblock}{Problem}Bug-triaging is an important, but labor-intensive process if done manually.\end{alertblock}
+\kern 3em
+\begin{block}{Goal}Train a bug-triaging machine, which predicts whether a bug is likely to be fixed.\end{block}
+\end{frame}
+
+\section{Data}
+\begin{frame}
+\frametitle{Raw data}
+The Eclipse data set can be found at
+\url{https://github.com/ansymo/msr2013-bug_dataset}.
+
+The raw data set consists of 12 tables:
+\begin{table}
+	\centering
+	\begin{tabular}{|l|l|}
+		\hline
+		\multicolumn{2}{|l|}{Eclipse Bug Data Set}\\
+		\hline
+		reports & priority\\
+		assigned\_to & product\\
+		bug\_status & resolution\\
+		cc\footnote{The data has been newly formated with Excel VBA.} & severity\\
+		component & short\_desc\\
+		op\_sys & version\\
+		\hline 
+	\end{tabular}
+\end{table}	
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Data model}
+\begin{figure}
+\includegraphics[width=\textwidth]{pictures/ERDiagram/ERDiagram.pdf}    
+\caption{ER model of data used.}
+\end{figure}
+\end{frame}
+
+\section{Solution Approach}
+\begin{frame}
+\frametitle{Feature Creation}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Univariate Analysis}
+\begin{figure}
+	\includegraphics[height=0.75\textheight]{pictures/boxplots.png}    
+	\caption{ER model of data used.}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Correlation Analysis}
+\begin{figure}
+	\includegraphics[height=0.75\textheight]{pictures/correlations.png}    
+	\caption{ER model of data used.}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Models}
+We consider 6 models:
+\begin{enumerate}
+	\item Naive Bayes
+	\item Logistic Regression
+	\item Random Forest
+	\item Boosting Classifier
+	\item Support Vector Machine
+	\item Neural Network
+\end{enumerate}
+We split the data set into a training (50\%), a cross-validation (25\%) and a test (25\%) set. The training set is used to train the models and we calibrate the parametes on the cross-validation set. The final accuracy is caculated on the test set.
+\end{frame}
+
+\section{Results}
+\begin{frame}
+\frametitle{Accuracy}
+We achieve the following accuracies on the test set:
+\begin{table}
+	\begin{tabular}{|l|l|}
+		\hline
+		Naive Bayes & 82.8098\%\\\hline
+		Logistic Regression & 84.9409\%\\\hline
+		Random Forest & 86.1529\%\\\hline
+		Boosting Classifier & 85.4661\%\\\hline
+		Support Vector Machine &  85.9105\%\\\hline
+		Neural Network & 86.1125\%\\
+		\hline 
+	\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}
+\frametitle{ROC-Curves}
+\begin{figure}
+	\includegraphics[height=0.75\textheight]{pictures/rocs.png}    
+	\caption{ER model of data used.}
+\end{figure}
+\end{frame}
+
+\end{document}

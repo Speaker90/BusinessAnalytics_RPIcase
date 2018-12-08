@@ -14,6 +14,7 @@ import argparse
 import os
 import sys
 import pandas as pd
+from pandas.plotting import scatter_matrix
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import normalize
@@ -25,6 +26,12 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.svm import SVC
 from keras.models import Sequential
+from numpy.random import seed
+seed(29)
+import random as rn
+rn.seed(29)
+from tensorflow import set_random_seed
+set_random_seed(29)
 
 ######################################################################################################
 #Preparation
@@ -63,6 +70,7 @@ N=df.shape[0]
 labels = np.zeros((N,1))
 features = np.zeros((N,10))
 
+
 #encode the labels (1,0), where we set fixed=1
 outcome_dict = {"FIXED": 1}
 labels[:,0] = FeatureEncoder(df,'Outcome',outcome_dict,False)
@@ -71,8 +79,7 @@ labels[:,0] = FeatureEncoder(df,'Outcome',outcome_dict,False)
 features[:,0]=df['Closing']-df['Opening']
 
 #the 2nd feature is the priority set by the assignee
-priority_dict = {"P1": 1,"P2": 2,"P3": 3,"P4": 4,"P5": 5}
-features[:,1] = FeatureEncoder(df,'Priority',priority_dict,False)
+features[:,1] = df['Assignments']
 
 #the 3rd feature is the number of CCs
 features[:,2]=df['CC']
@@ -101,6 +108,34 @@ features[:,8]=df['Social']
 #the 10th feature is an indicator whether the reporter fixes the bug himself
 features[:,9]=np.where(df["ReporterID"]==df["AssigneeID"],1,0)
 
+columns = ['OpenTime','Assignments', 'CC','Product', 'OS', 'SuccessAssignee','SuccessReporter','Component','Social','Equal']
+index = np.arange(N)
+features_df = pd.DataFrame(data = features, index = index, columns = columns)
+features_df['fixed'] = labels
+
+features_df.plot(kind="box", subplots= True, layout=(4,3), sharex=False, sharey=False, figsize=(12,9))
+plt.savefig('../docs/Latex/pictures/boxplots.png')
+plt.show()
+correlations = features_df.corr()
+# plot correlation matrix
+fig = plt.figure(figsize=(12,9))
+ax = fig.add_subplot(111)
+cax = ax.matshow(correlations,  vmin=-1, vmax=1)
+fig.colorbar(cax)
+ticks = np.arange(0,9,1)
+ax.set_xticks(ticks)
+ax.set_yticks(ticks)
+ax.set_xticklabels(columns)
+ax.set_yticklabels(columns)
+correlations = np.array(correlations)
+correlations = np.round(correlations,2)
+for i in range(correlations.shape[0]):
+    for j in range(correlations.shape[1]):
+        text = ax.text(j, i, correlations[i, j],
+                       ha="center", va="center", color="w")
+fig.savefig('../docs/Latex/pictures/correlations.png')
+plt.show()
+
 #now, we standardize the features
 std_scale = StandardScaler().fit(features)
 features_std = std_scale.transform(features)
@@ -122,29 +157,29 @@ print("[INFO] Training the models..")
 
 models = []
 
-print("\t1. Train Naive Bayes..")
+print("\t1. Training Naive Bayes..")
 NB = GaussianNB().fit(x_train, y_train)
 models.append(["Naive Bayes", NB])
 
-print("\t2. Train Logistic Regression..")
-LR = LogisticRegression(random_state=29,solver='lbfgs').fit(x_train,y_train)
+print("\t2. Training Logistic Regression..")
+LR = LogisticRegression(random_state=29,solver='lbfgs',C=1).fit(x_train,y_train)
 models.append(["Logistic Regression", LR])
 
-print("\t3. Train Random Forest..")
-RF = RandomForestClassifier(n_estimators=1000, max_depth=12, random_state=29).fit(x_train, y_train)
+print("\t3. Training Random Forest..")
+RF = RandomForestClassifier(n_estimators=1000, max_depth=15, random_state=29).fit(x_train, y_train)
 models.append(["Random Forest", RF])
 
-print("\t4. Train Boosting Classifier..")
-GB = GradientBoostingClassifier(n_estimators= 1000, max_depth= 9, random_state= 29).fit(x_train,y_train)
+print("\t4. Training Boosting Classifier..")
+GB = GradientBoostingClassifier(n_estimators= 1000, max_depth= 6, random_state= 29).fit(x_train,y_train)
 models.append(["Boosting Classifier", GB])
 
-print("\t5. Train Support Vector Machine..")
-SVM = SVC(gamma='auto', probability=True, C=0.975).fit(x_train,y_train)
+print("\t5. Training Support Vector Machine..")
+SVM = SVC(gamma='auto', probability=True, C=0.8).fit(x_train,y_train)
 models.append(["Support Vector Machine", SVM])
 
-print("\t6. Train Neural Network..")
+print("\t6. Training Neural Network..")
 NN = SetUpNeuralNetwork(features.shape[1])
-NN.fit(x_train, y_train, epochs=100, batch_size=128, verbose=0)
+NN.fit(x_train, y_train, epochs=50, batch_size=128, verbose=0)
 models.append(["Neural Network", NN])
 
 
