@@ -111,10 +111,10 @@ features[:,9]=np.where(df["ReporterID"]==df["AssigneeID"],1,0)
 columns = ['OpenTime','Assignments', 'CC','Product', 'OS', 'SuccessAssignee','SuccessReporter','Component','Social','Equal']
 index = np.arange(N)
 features_df = pd.DataFrame(data = features, index = index, columns = columns)
-features_df['fixed'] = labels
+features_df['Fixed'] = labels
 
 features_df.plot(kind="box", subplots= True, layout=(4,3), sharex=False, sharey=False, figsize=(12,9))
-plt.savefig('../docs/Latex/pictures/boxplots.png')
+plt.savefig('../docs/Latex/pictures/boxplots.png', bbox_inches='tight')
 plt.show()
 correlations = features_df.corr()
 # plot correlation matrix
@@ -133,7 +133,7 @@ for i in range(correlations.shape[0]):
     for j in range(correlations.shape[1]):
         text = ax.text(j, i, correlations[i, j],
                        ha="center", va="center", color="w")
-fig.savefig('../docs/Latex/pictures/correlations.png')
+fig.savefig('../docs/Latex/pictures/correlations.png',bbox_inches='tight')
 plt.show()
 
 #now, we standardize the features

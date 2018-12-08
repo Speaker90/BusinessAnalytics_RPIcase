@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.10.31)  8 DEC 2018 18:14
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.10.31)  8 DEC 2018 18:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -932,11 +932,11 @@ Package pdftex.def Info: pictures/ERDiagram/ERDiagram.pdf  used on input line 8
  <./pictures/ERDiagram/ERDiagram.pdf>] [7
 
 ]
-<pictures/boxplots.png, id=267, 867.24pt x 650.43pt>
+<pictures/boxplots.png, id=267, 717.6411pt x 542.7477pt>
 File: pictures/boxplots.png Graphic file (type png)
 <use pictures/boxplots.png>
 Package pdftex.def Info: pictures/boxplots.png  used on input line 95.
-(pdftex.def)             Requested size: 249.41557pt x 187.06004pt.
+(pdftex.def)             Requested size: 247.33458pt x 187.06004pt.
 
 Overfull \vbox (10.60051pt too high) detected at line 95
  []
@@ -944,11 +944,11 @@ Overfull \vbox (10.60051pt too high) detected at line 95
 [8
 
  <./pictures/boxplots.png>]
-<pictures/correlations.png, id=297, 867.24pt x 650.43pt>
+<pictures/correlations.png, id=297, 703.1871pt x 538.4115pt>
 File: pictures/correlations.png Graphic file (type png)
 <use pictures/correlations.png>
 Package pdftex.def Info: pictures/correlations.png  used on input line 103.
-(pdftex.def)             Requested size: 249.41557pt x 187.06004pt.
+(pdftex.def)             Requested size: 244.30585pt x 187.06004pt.
 
 Overfull \vbox (10.60051pt too high) detected at line 103
  []
@@ -1005,7 +1005,7 @@ sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr
 /local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/l
 ocal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/lo
 cal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on Presentation.pdf (12 pages, 282149 bytes).
+Output written on Presentation.pdf (12 pages, 276412 bytes).
 PDF statistics:
  436 PDF objects out of 1000 (max. 8388607)
  391 compressed objects within 4 object streams
