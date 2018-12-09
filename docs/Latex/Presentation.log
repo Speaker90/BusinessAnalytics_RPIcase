@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.10.31)  8 DEC 2018 18:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.10.31)  9 DEC 2018 14:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -684,6 +684,22 @@ Package: booktabs 2016/04/27 v1.618033 publication quality tables
 \@lastruleclass=\count158
 \@thisrulewidth=\dimen258
 )
+(/usr/local/texlive/2018/texmf-dist/tex/latex/colortbl/colortbl.sty
+Package: colortbl 2012/02/13 v1.0a Color table columns (DPC)
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/tools/array.sty
+Package: array 2018/04/07 v2.4g Tabular extension package (FMi)
+\col@sep=\dimen259
+\ar@mcellbox=\box53
+\extrarowheight=\dimen260
+\NC@list=\toks43
+\extratabsurround=\skip57
+\backup@length=\skip58
+\ar@cellbox=\box54
+)
+\everycr=\toks44
+\minrowclearance=\skip59
+)
 (/usr/local/texlive/2018/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
 (/usr/local/texlive/2018/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
 Package: pgf 2015/08/07 v3.0.1a (rcs-revision 1.15)
@@ -691,7 +707,7 @@ Package: pgf 2015/08/07 v3.0.1a (rcs-revision 1.15)
 (/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.cod
 e.tex
 File: pgfmoduleshapes.code.tex 2014/03/21  (rcs-revision 1.35)
-\pgfnodeparttextbox=\box53
+\pgfnodeparttextbox=\box55
 )
 (/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.
 tex
@@ -700,8 +716,8 @@ File: pgfmoduleplot.code.tex 2015/08/03  (rcs-revision 1.13)
 (/usr/local/texlive/2018/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
 -0-65.sty
 Package: pgfcomp-version-0-65 2007/07/03 v3.0.1a (rcs-revision 1.7)
-\pgf@nodesepstart=\dimen259
-\pgf@nodesepend=\dimen260
+\pgf@nodesepstart=\dimen261
+\pgf@nodesepend=\dimen262
 )
 (/usr/local/texlive/2018/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
 -1-18.sty
@@ -716,10 +732,10 @@ Package: pgfcomp-version-1-18 2007/07/23 v3.0.1a (rcs-revision 1.1)
 Package: pgffor 2013/12/13 v3.0.1a (rcs-revision 1.25)
 
 (/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex)
-\pgffor@iter=\dimen261
-\pgffor@skip=\dimen262
-\pgffor@stack=\toks43
-\pgffor@toks=\toks44
+\pgffor@iter=\dimen263
+\pgffor@skip=\dimen264
+\pgffor@stack=\toks45
+\pgffor@toks=\toks46
 ))
 (/usr/local/texlive/2018/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.cod
 e.tex
@@ -729,18 +745,18 @@ Package: tikz 2015/08/07 v3.0.1a (rcs-revision 1.151)
 dlers.code.tex
 File: pgflibraryplothandlers.code.tex 2013/08/31 v3.0.1a (rcs-revision 1.20)
 \pgf@plot@mark@count=\count159
-\pgfplotmarksize=\dimen263
+\pgfplotmarksize=\dimen265
 )
-\tikz@lastx=\dimen264
-\tikz@lasty=\dimen265
-\tikz@lastxsaved=\dimen266
-\tikz@lastysaved=\dimen267
-\tikzleveldistance=\dimen268
-\tikzsiblingdistance=\dimen269
-\tikz@figbox=\box54
-\tikz@figbox@bg=\box55
-\tikz@tempbox=\box56
-\tikz@tempbox@bg=\box57
+\tikz@lastx=\dimen266
+\tikz@lasty=\dimen267
+\tikz@lastxsaved=\dimen268
+\tikz@lastysaved=\dimen269
+\tikzleveldistance=\dimen270
+\tikzsiblingdistance=\dimen271
+\tikz@figbox=\box56
+\tikz@figbox@bg=\box57
+\tikz@tempbox=\box58
+\tikz@tempbox@bg=\box59
 \tikztreelevel=\count160
 \tikznumberofchildren=\count161
 \tikznumberofcurrentchild=\count162
@@ -771,20 +787,20 @@ sty)
 (./Presentation.aux)
 \openout1 = `Presentation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 13.
-LaTeX Font Info:    ... okay on input line 13.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -823,16 +839,16 @@ LaTeX Font Info:    ... okay on input line 13.
 (/usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count168
-\scratchdimen=\dimen270
-\scratchbox=\box58
+\scratchdimen=\dimen272
+\scratchbox=\box60
 \nofMPsegments=\count169
 \nofMParguments=\count170
-\everyMPshowfont=\toks45
+\everyMPshowfont=\toks47
 \MPscratchCnt=\count171
-\MPscratchDim=\dimen271
+\MPscratchDim=\dimen273
 \MPnumerator=\count172
 \makeMPintoPDFobject=\count173
-\everyMPtoPDFconversion=\toks46
+\everyMPtoPDFconversion=\toks48
 ) (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -851,8 +867,8 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 ABD: EveryShipout initializing macros
-\AtBeginShipoutBox=\box59
-Package hyperref Info: Link coloring OFF on input line 13.
+\AtBeginShipoutBox=\box61
+Package hyperref Info: Link coloring OFF on input line 18.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -862,9 +878,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count174
 )
-LaTeX Info: Redefining \ref on input line 13.
-LaTeX Info: Redefining \pageref on input line 13.
-LaTeX Info: Redefining \nameref on input line 13.
+LaTeX Info: Redefining \ref on input line 18.
+LaTeX Info: Redefining \pageref on input line 18.
+LaTeX Info: Redefining \nameref on input line 18.
 
 (./Presentation.out) (./Presentation.out)
 \@outlinefile=\write5
@@ -897,7 +913,7 @@ Dictionary: translator-theorem-dictionary, Language: English
 ) (./Presentation.nav)
 
 Package hyperref Warning: Option `pdfauthor' has already been used,
-(hyperref)                setting the option has no effect on input line 16.
+(hyperref)                setting the option has no effect on input line 21.
 
 [1
 
@@ -905,11 +921,11 @@ Package hyperref Warning: Option `pdfauthor' has already been used,
 [2
 
 ]
-LaTeX Font Info:    Try loading font information for U+msa on input line 39.
+LaTeX Font Info:    Try loading font information for U+msa on input line 44.
  (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 39.
+LaTeX Font Info:    Try loading font information for U+msb on input line 44.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -920,58 +936,62 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ]
 [5
 
+] [6
+
 ]
-<pictures/ERDiagram/ERDiagram.pdf, id=193, 397.92966pt x 167.01094pt>
+<pictures/ERDiagram/ERDiagram.pdf, id=234, 397.92966pt x 167.01094pt>
 File: pictures/ERDiagram/ERDiagram.pdf Graphic file (type pdf)
 <use pictures/ERDiagram/ERDiagram.pdf>
-Package pdftex.def Info: pictures/ERDiagram/ERDiagram.pdf  used on input line 8
-0.
+Package pdftex.def Info: pictures/ERDiagram/ERDiagram.pdf  used on input line 1
+21.
 (pdftex.def)             Requested size: 342.2953pt x 143.66737pt.
- [6
+ [7
 
- <./pictures/ERDiagram/ERDiagram.pdf>] [7
+ <./pictures/ERDiagram/ERDiagram.pdf>] [8
 
 ]
-<pictures/boxplots.png, id=267, 717.6411pt x 542.7477pt>
+<pictures/boxplots.png, id=311, 886.0302pt x 542.7477pt>
 File: pictures/boxplots.png Graphic file (type png)
 <use pictures/boxplots.png>
-Package pdftex.def Info: pictures/boxplots.png  used on input line 95.
-(pdftex.def)             Requested size: 247.33458pt x 187.06004pt.
+Package pdftex.def Info: pictures/boxplots.png  used on input line 148.
+(pdftex.def)             Requested size: 305.3698pt x 187.06004pt.
 
-Overfull \vbox (10.60051pt too high) detected at line 95
- []
-
-[8
-
- <./pictures/boxplots.png>]
-<pictures/correlations.png, id=297, 703.1871pt x 538.4115pt>
-File: pictures/correlations.png Graphic file (type png)
-<use pictures/correlations.png>
-Package pdftex.def Info: pictures/correlations.png  used on input line 103.
-(pdftex.def)             Requested size: 244.30585pt x 187.06004pt.
-
-Overfull \vbox (10.60051pt too high) detected at line 103
+Overfull \vbox (10.60051pt too high) detected at line 148
  []
 
 [9
 
- <./pictures/correlations.png>] [10
+ <./pictures/boxplots.png>]
+<pictures/correlations.png, id=341, 711.8595pt x 595.5048pt>
+File: pictures/correlations.png Graphic file (type png)
+<use pictures/correlations.png>
+Package pdftex.def Info: pictures/correlations.png  used on input line 156.
+(pdftex.def)             Requested size: 223.60692pt x 187.06004pt.
 
-] [11
-
-]
-<pictures/rocs.png, id=378, 462.528pt x 346.896pt>
-File: pictures/rocs.png Graphic file (type png)
-<use pictures/rocs.png>
-Package pdftex.def Info: pictures/rocs.png  used on input line 143.
-(pdftex.def)             Requested size: 249.41557pt x 187.06004pt.
-
-Overfull \vbox (10.60051pt too high) detected at line 143
+Overfull \vbox (10.60051pt too high) detected at line 156
  []
 
-[12
+[10
 
- <./pictures/rocs.png>]
+ <./pictures/correlations.png>] [11
+
+] [12
+
+]
+<pictures/rocs.png, id=423, 731.3724pt x 562.2606pt>
+File: pictures/rocs.png Graphic file (type png)
+<use pictures/rocs.png>
+Package pdftex.def Info: pictures/rocs.png  used on input line 196.
+(pdftex.def)             Requested size: 243.31776pt x 187.06004pt.
+
+Overfull \vbox (10.60051pt too high) detected at line 196
+ []
+
+[13
+
+ <./pictures/rocs.png>] [14
+
+]
 \tf@nav=\write6
 \openout6 = `Presentation.nav'.
 
@@ -981,34 +1001,36 @@ Overfull \vbox (10.60051pt too high) detected at line 143
 \tf@snm=\write8
 \openout8 = `Presentation.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 145.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 145.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 210.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 210.
  (./Presentation.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 145.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 145.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 210.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 210.
 Package rerunfilecheck Info: File `Presentation.out' has not changed.
-(rerunfilecheck)             Checksum: 669FB32217C7DC6F19C4BA017A216A19;289.
+(rerunfilecheck)             Checksum: 8518B2E231C89E4D20ED81C787176DD9;330.
  ) 
 Here is how much of TeX's memory you used:
- 20064 strings out of 492649
- 397286 string characters out of 6129621
- 468289 words of memory out of 5000000
- 23464 multiletter control sequences out of 15000+600000
+ 20209 strings out of 492649
+ 399463 string characters out of 6129621
+ 475573 words of memory out of 5000000
+ 23594 multiletter control sequences out of 15000+600000
  12769 words of font info for 49 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 56i,15n,59p,808b,602s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 56i,18n,59p,808b,1111s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pf
-b></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><
-/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></
-usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></u
-sr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr
-/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/l
-ocal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/lo
-cal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on Presentation.pdf (12 pages, 276412 bytes).
+b></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
+></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
+/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></us
+r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr
+/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/
+local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/lo
+cal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/loca
+l/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local
+/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
+Output written on Presentation.pdf (14 pages, 341531 bytes).
 PDF statistics:
- 436 PDF objects out of 1000 (max. 8388607)
- 391 compressed objects within 4 object streams
- 31 named destinations out of 1000 (max. 500000)
- 141 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 520 PDF objects out of 1000 (max. 8388607)
+ 469 compressed objects within 5 object streams
+ 40 named destinations out of 1000 (max. 500000)
+ 155 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -4,11 +4,16 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{xcolor}
+\usepackage{colortbl}
 \usepackage{tikz}
 \usetheme{CambridgeUS}
 \usecolortheme{whale}
 \setbeamercolor{frametitle}{fg=black}
-\beamertemplateballitem
+
+\newcommand\ballref[1]{%
+	\tikz \node[circle, shade,ball color=structure.fg,inner sep=0pt,%
+	text width=8pt,font=\tiny,align=center] {\color{white}\ref{#1}};
+}
 
 \begin{document}
 	
@@ -72,6 +77,42 @@ The raw data set consists of 12 tables:
 \end{frame}
 
 \begin{frame}
+\frametitle{Data preselection}
+After a visual exploratory analysis, four datasets were excluded:
+
+\begin{columns}[T] % align columns
+	\begin{column}{.48\textwidth}
+	\begin{table}
+		\centering
+		\begin{tabular}{|l|l|l}
+			\hline
+			\multicolumn{2}{|l|}{Eclipse Bug Data Set*}\\
+			\hline
+			reports & \cellcolor{red!25}priority \ballref{ite:first}\\
+			assigned\_to & product\\
+			bug\_status & resolution\\
+			cc & \cellcolor{red!25}severity \ballref{ite:second}\\
+			component &\cellcolor{red!25}short\_desc \ballref{ite:third}\\
+			op\_sys & \cellcolor{red!25}version \ballref{ite:fourth}\\
+			\hline 
+		\end{tabular}
+	\end{table}	
+	*Duplicates are excluded.
+	\end{column}%
+	\hfill%
+	\begin{column}{.48\textwidth}
+		\begin{enumerate}
+			\item\label{ite:first} Priority is set by the assignee, but as we want to help them triaging the bug, we exlude it.
+			\item\label{ite:second} Severity is currently set by the triaging team.
+			\item\label{ite:third} The descriptions are hard to encode.
+			\item\label{ite:fourth} The version dataset is quite messy and sometimes it is not clear which version is being referred to.
+		\end{enumerate}
+		
+	\end{column}%
+\end{columns}
+\end{frame}
+
+\begin{frame}
 \frametitle{Data model}
 \begin{figure}
 \includegraphics[width=\textwidth]{pictures/ERDiagram/ERDiagram.pdf}    
@@ -82,7 +123,19 @@ The raw data set consists of 12 tables:
 \section{Solution Approach}
 \begin{frame}
 \frametitle{Feature Creation}
-
+From the data model, the feature matrix $X$ is constructed with:
+\begin{align*}
+x_1 &= \text{OpeningTime (Open - Close )} && [discrete]\\
+x_2 &= \text{Assignments Nr. of assignees)}&& [discrete]\\
+x_3 &= \text{CCs (Nr. of interested parties)}&& [discrete]\\
+x_4 &= \text{Product (Affected product)}&& [discrete]\\
+x_5 &= \text{OS (Major OS)}&& [discrete]\\
+x_6 &= \text{SuccessAssignee (Success rate of Assignee)}&& [proportion]\\
+x_7 &= \text{SuccessReporter (Success rate of Reporter)}&& [proportion]\\
+x_8 &= \text{Component (The affected subcomponent)}&& [discrete]\\
+x_9 &= \text{Social (Past bug collaborations)}&& [discrete]\\
+x_{10}&= \text{Equal (Reporter equals Assignee)} && [binary]
+\end{align*}
 \end{frame}
 
 \begin{frame}
@@ -128,7 +181,7 @@ We achieve the following accuracies on the test set:
 		Random Forest & 86.1529\%\\\hline
 		Boosting Classifier & 85.4661\%\\\hline
 		Support Vector Machine &  85.9105\%\\\hline
-		Neural Network & 86.1125\%\\
+		Neural Network\footnote{Results are not exactly reproducible, as some randomness with GPU usage cannot be avoided.} & 86.1125\%\\
 		\hline 
 	\end{tabular}
 \end{table}
@@ -140,6 +193,18 @@ We achieve the following accuracies on the test set:
 	\includegraphics[height=0.75\textheight]{pictures/rocs.png}    
 	\caption{ER model of data used.}
 \end{figure}
+\end{frame}
+
+\section{Ending}
+\begin{frame}
+\frametitle{Thank you!}
+\begin{center}
+	The code of the project can be found at
+\end{center}
+	\kern 2em
+\begin{center}
+	\url{https://github.com/Speaker90/BusinessAnalytics_RPIcase}
+\end{center}
 \end{frame}
 
 \end{document}

@@ -2,5 +2,6 @@
 \beamer@sectionintoc {2}{Background}{3}{0}{2}
 \beamer@sectionintoc {3}{Problem Formulation \& Goal}{4}{0}{3}
 \beamer@sectionintoc {4}{Data}{5}{0}{4}
-\beamer@sectionintoc {5}{Solution Approach}{7}{0}{5}
-\beamer@sectionintoc {6}{Results}{11}{0}{6}
+\beamer@sectionintoc {5}{Solution Approach}{8}{0}{5}
+\beamer@sectionintoc {6}{Results}{12}{0}{6}
+\beamer@sectionintoc {7}{Ending}{14}{0}{7}
