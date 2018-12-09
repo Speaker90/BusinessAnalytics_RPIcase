@@ -1,6 +1,15 @@
 # BusinessAnalytics_RPIcase
 
-This project trains 6 different models for bug triaging of the Eclipse dataset. For an overview of the task, check out the [RPI-Case file](docs/RPICase.pdf).
+This project trains 6 different models for bug triaging of the Eclipse dataset:
+
+* Naive Bayes
+* Logistic Regression
+* Random Forest
+* Boosting Classifier
+* Support Vector Machine
+* Neural Network
+
+For an overview of the task, check out the [RPI-Case file](docs/RPICase.pdf).
 
 ## Installation
 
