@@ -91,7 +91,6 @@ features[:,2]=df['CC']
 #the 4th feature is product, here we assign each unique product a value
 products = df["Product"].unique()
 product_dict = dict(zip(products, range(len(products))))
-print(product_dict)
 features[:,3] = FeatureEncoder(df,'Product',product_dict,True)
 
 #the 5th feature is the main operating system, we use a fuzzy encoder
