@@ -6,9 +6,11 @@
 from helpers import FromDBtoDF
 from helpers import FeatureEncoder
 from helpers import FuzzyFeatureEncoder
+from helpers import PlotFeatureStatistics
 from helpers import SetUpNeuralNetwork
 from helpers import CalculateAccuracy
 from helpers import PrintAccuracy
+from helpers import SavePredictions
 from helpers import PlotROCs
 import argparse
 import os
@@ -42,10 +44,13 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 #define argument parser and evaluate optional arguments
 ap = argparse.ArgumentParser()
 ap.add_argument("-c", "--calibration",action='store_true',help="enable calibration mode")
+ap.add_argument("-p", "--plotting",action='store_true',help="plot feature statistics")
 args = ap.parse_args()
 if args.calibration:
-    print("CALIBRATION MODE TURNED ON, USING CROSS-VALIDATION SET")
+    print("---------------------> CALIBRATION MODE TURNED ON, USING CROSS-VALIDATION SET")
 
+if args.plotting:
+    print("---------------------> PLOTTING STATISTICS ENABLED")
 
 ######################################################################################################
 #1. Data import
@@ -70,7 +75,6 @@ N=df.shape[0]
 labels = np.zeros((N,1))
 features = np.zeros((N,10))
 
-
 #encode the labels (1,0), where we set fixed=1
 outcome_dict = {"FIXED": 1}
 labels[:,0] = FeatureEncoder(df,'Outcome',outcome_dict,False)
@@ -78,7 +82,7 @@ labels[:,0] = FeatureEncoder(df,'Outcome',outcome_dict,False)
 #the first feature is the time a bug has been open
 features[:,0]=df['Closing']-df['Opening']
 
-#the 2nd feature is the priority set by the assignee
+#the 2nd feature is the number of assignments
 features[:,1] = df['Assignments']
 
 #the 3rd feature is the number of CCs
@@ -87,6 +91,7 @@ features[:,2]=df['CC']
 #the 4th feature is product, here we assign each unique product a value
 products = df["Product"].unique()
 product_dict = dict(zip(products, range(len(products))))
+print(product_dict)
 features[:,3] = FeatureEncoder(df,'Product',product_dict,True)
 
 #the 5th feature is the main operating system, we use a fuzzy encoder
@@ -108,52 +113,34 @@ features[:,8]=df['Social']
 #the 10th feature is an indicator whether the reporter fixes the bug himself
 features[:,9]=np.where(df["ReporterID"]==df["AssigneeID"],1,0)
 
-columns = ['OpenTime','Assignments', 'CC','Product', 'OS', 'SuccessAssignee','SuccessReporter','Component','Social','Equal']
-index = np.arange(N)
-features_df = pd.DataFrame(data = features, index = index, columns = columns)
-features_df['Fixed'] = labels
 
-features_df.plot(kind="box", subplots= True, layout=(4,3), sharex=False, sharey=False, figsize=(12,9))
-plt.savefig('../docs/Latex/pictures/boxplots.png', bbox_inches='tight')
-plt.show()
-correlations = features_df.corr()
-# plot correlation matrix
-fig = plt.figure(figsize=(12,9))
-ax = fig.add_subplot(111)
-cax = ax.matshow(correlations,  vmin=-1, vmax=1)
-fig.colorbar(cax)
-ticks = np.arange(0,9,1)
-ax.set_xticks(ticks)
-ax.set_yticks(ticks)
-ax.set_xticklabels(columns)
-ax.set_yticklabels(columns)
-correlations = np.array(correlations)
-correlations = np.round(correlations,2)
-for i in range(correlations.shape[0]):
-    for j in range(correlations.shape[1]):
-        text = ax.text(j, i, correlations[i, j],
-                       ha="center", va="center", color="w")
-fig.savefig('../docs/Latex/pictures/correlations.png',bbox_inches='tight')
-plt.show()
+######################################################################################################
+#3. Plotting feature statistcs 
+
+if args.plotting:
+    print("[INFO] Plotting statistics of features..")
+
+    PlotFeatureStatistics(features,labels)
+
+
+######################################################################################################
+#4. Training the Models 
+
+print("[INFO] Training the models..")
 
 #now, we standardize the features
 std_scale = StandardScaler().fit(features)
 features_std = std_scale.transform(features)
 
 #split up data into training-crossvalidation-test sets
-x_train, x_test, y_train, y_test = train_test_split(features_std, labels, test_size=0.5, random_state=29)
-x_cv, x_test, y_cv, y_test = train_test_split(x_test,y_test, test_size=0.5, random_state=29)
+indices = np.arange(features_std.shape[0])
+x_train, x_temp, y_train, y_temp, indices_train, indices_temp = train_test_split(features_std, labels, indices, test_size=0.5, random_state=29)
+x_cv, x_test, y_cv, y_test, indices_cv, indices_test = train_test_split(x_temp,y_temp, indices_temp, test_size=0.5, random_state=29)
 
 #flatten the labels
 y_train=y_train.flatten()
 y_cv = y_cv.flatten()
 y_test = y_test.flatten()
-
-
-######################################################################################################
-#3. Training the Models 
-
-print("[INFO] Training the models..")
 
 models = []
 
@@ -209,6 +196,9 @@ models = CalculateAccuracy(models,x_test,y_test)
 
 #print accuracy
 PrintAccuracy('Test Set',models)
+
+#save predictions for each model
+SavePredictions(x_test,indices_test,models)
 
 #plot the roc-curves
 PlotROCs(models,x_test,y_test)
