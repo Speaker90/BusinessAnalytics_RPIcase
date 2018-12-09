@@ -9,6 +9,7 @@
 \usetheme{CambridgeUS}
 \usecolortheme{whale}
 \setbeamercolor{frametitle}{fg=black}
+\setbeamertemplate{caption}[numbered]
 
 \newcommand\ballref[1]{%
 	\tikz \node[circle, shade,ball color=structure.fg,inner sep=0pt,%
@@ -34,12 +35,13 @@
 		\item Data
 		\item Solution Approach
 		\item Results
+		\item Q\&A
 	\end{enumerate}
 \end{frame}
 
 \section{Background}
 \begin{frame}
-The annual cost of software bugs is estimated at \$59.5 billion\footnote{P Bhattacharya and I Neamtiu, “Fine-­‐grained incremental learning and multi-­‐feature tossing graphs to improve bug triaging”, Software Maintenance (ICSM) 2010 (ieeexplore.ieee.org)}. For the Eclipse project, there are thousands of bugs reported. An efficent bug-triaging can help developers to focus their resources and thus, save companies a lot of money. 
+The annual cost of software bugs is estimated at \$59.5 billion\footnote{P Bhattacharya and I Neamtiu, “Fine-­grained incremental learning and multi-­feature tossing graphs to improve bug triaging”, Software Maintenance (ICSM) 2010 (ieeexplore.ieee.org)}. For the Eclipse project, there are thousands of bugs reported. An efficent bug-triaging can help developers to focus their resources and thus, save companies a lot of money. 
 \frametitle{Background Information}
 \end{frame}
 
@@ -53,7 +55,7 @@ The annual cost of software bugs is estimated at \$59.5 billion\footnote{P Bhatt
 
 \section{Data}
 \begin{frame}
-\frametitle{Raw data}
+\frametitle{Raw Data}
 The Eclipse data set can be found at
 \url{https://github.com/ansymo/msr2013-bug_dataset}.
 
@@ -72,12 +74,14 @@ The raw data set consists of 12 tables:
 		op\_sys & version\\
 		\hline 
 	\end{tabular}
+	\caption{Tables of the bug data set.}
+	\label{tab:DataTables}
 \end{table}	
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Data preselection}
+\frametitle{Data Preselection}
 After a visual exploratory analysis, four datasets were excluded:
 
 \begin{columns}[T] % align columns
@@ -96,13 +100,15 @@ After a visual exploratory analysis, four datasets were excluded:
 			op\_sys & \cellcolor{red!25}version \ballref{ite:fourth}\\
 			\hline 
 		\end{tabular}
+		\caption{Excluded data tables.}
+		\label{tab:ExTables}
 	\end{table}	
-	*Duplicates are excluded.
+	*All duplicate bugs are excluded.
 	\end{column}%
 	\hfill%
 	\begin{column}{.48\textwidth}
 		\begin{enumerate}
-			\item\label{ite:first} Priority is set by the assignee, but as we want to help them triaging the bug, we exlude it.
+			\item\label{ite:first} Priority is set by the assignee, but as we want to help them triaging the bugs, we exlude it.
 			\item\label{ite:second} Severity is currently set by the triaging team.
 			\item\label{ite:third} The descriptions are hard to encode.
 			\item\label{ite:fourth} The version dataset is quite messy and sometimes it is not clear which version is being referred to.
@@ -113,10 +119,11 @@ After a visual exploratory analysis, four datasets were excluded:
 \end{frame}
 
 \begin{frame}
-\frametitle{Data model}
+\frametitle{Data Model}
 \begin{figure}
 \includegraphics[width=\textwidth]{pictures/ERDiagram/ERDiagram.pdf}    
 \caption{ER model of data used.}
+\label{fig:ER}
 \end{figure}
 \end{frame}
 
@@ -125,9 +132,9 @@ After a visual exploratory analysis, four datasets were excluded:
 \frametitle{Feature Creation}
 From the data model, the feature matrix $X$ is constructed with:
 \begin{align*}
-x_1 &= \text{OpeningTime (Open - Close )} && [discrete]\\
-x_2 &= \text{Assignments Nr. of assignees)}&& [discrete]\\
-x_3 &= \text{CCs (Nr. of interested parties)}&& [discrete]\\
+x_1 &= \text{OpenTime (Open - Close )} && [discrete]\\
+x_2 &= \text{Assignments (Nr. of assignees)}&& [discrete]\\
+x_3 &= \text{CC (Nr. of interested parties)}&& [discrete]\\
 x_4 &= \text{Product (Affected product)}&& [discrete]\\
 x_5 &= \text{OS (Major OS)}&& [discrete]\\
 x_6 &= \text{SuccessAssignee (Success rate of Assignee)}&& [proportion]\\
@@ -136,13 +143,15 @@ x_8 &= \text{Component (The affected subcomponent)}&& [discrete]\\
 x_9 &= \text{Social (Past bug collaborations)}&& [discrete]\\
 x_{10}&= \text{Equal (Reporter equals Assignee)} && [binary]
 \end{align*}
+The labels are $y= $ Fixed with values in $\{0,1\}$.
 \end{frame}
 
 \begin{frame}
 \frametitle{Univariate Analysis}
 \begin{figure}
 	\includegraphics[height=0.75\textheight]{pictures/boxplots.png}    
-	\caption{ER model of data used.}
+	\caption{Boxplots of the features and the label.}
+	\label{fig:boxplots}
 \end{figure}
 
 \end{frame}
@@ -151,7 +160,8 @@ x_{10}&= \text{Equal (Reporter equals Assignee)} && [binary]
 \frametitle{Correlation Analysis}
 \begin{figure}
 	\includegraphics[height=0.75\textheight]{pictures/correlations.png}    
-	\caption{ER model of data used.}
+	\caption{Correlations of the features and the labels.}
+	\label{fig:corr}
 \end{figure}
 \end{frame}
 
@@ -178,12 +188,14 @@ We achieve the following accuracies on the test set:
 		\hline
 		Naive Bayes & 82.8098\%\\\hline
 		Logistic Regression & 84.9409\%\\\hline
-		Random Forest & 86.1529\%\\\hline
+		\cellcolor{green!25}Random Forest & \cellcolor{green!25}86.1529\%\\\hline
 		Boosting Classifier & 85.4661\%\\\hline
 		Support Vector Machine &  85.9105\%\\\hline
 		Neural Network\footnote{Results are not exactly reproducible, as some randomness with GPU usage cannot be avoided.} & 86.1125\%\\
 		\hline 
 	\end{tabular}
+	\caption{Accuracies of the models.}
+	\label{tab:Accs}
 \end{table}
 \end{frame}
 
@@ -191,13 +203,14 @@ We achieve the following accuracies on the test set:
 \frametitle{ROC-Curves}
 \begin{figure}
 	\includegraphics[height=0.75\textheight]{pictures/rocs.png}    
-	\caption{ER model of data used.}
+	\caption{ROC-Curves of all models.}
+	\label{fig: rocs}
 \end{figure}
 \end{frame}
 
-\section{Ending}
+\section{Q\&A}
 \begin{frame}
-\frametitle{Thank you!}
+\frametitle{Q\&A}
 \begin{center}
 	The code of the project can be found at
 \end{center}

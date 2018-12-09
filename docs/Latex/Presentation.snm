@@ -1,4 +1,11 @@
+\beamer@slide {tab:DataTables}{5}
+\beamer@slide {tab:ExTables}{6}
 \beamer@slide {ite:first}{6}
 \beamer@slide {ite:second}{6}
 \beamer@slide {ite:third}{6}
 \beamer@slide {ite:fourth}{6}
+\beamer@slide {fig:ER}{7}
+\beamer@slide {fig:boxplots}{9}
+\beamer@slide {fig:corr}{10}
+\beamer@slide {tab:Accs}{12}
+\beamer@slide {fig: rocs}{13}

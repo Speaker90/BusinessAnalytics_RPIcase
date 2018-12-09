@@ -4,4 +4,4 @@
 \beamer@sectionintoc {4}{Data}{5}{0}{4}
 \beamer@sectionintoc {5}{Solution Approach}{8}{0}{5}
 \beamer@sectionintoc {6}{Results}{12}{0}{6}
-\beamer@sectionintoc {7}{Ending}{14}{0}{7}
+\beamer@sectionintoc {7}{Q\&A}{14}{0}{7}
