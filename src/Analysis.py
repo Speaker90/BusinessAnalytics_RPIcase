@@ -171,7 +171,7 @@ models.append(["Neural Network", NN])
 
 
 ######################################################################################################
-#4. Cross-validate the Models 
+#5. Cross-validate the Models 
 
 if args.calibration:
     print("[INFO]  Crossvalidation accuracy..")
@@ -187,7 +187,7 @@ if args.calibration:
 
 
 ######################################################################################################
-#5. Evaluate the Models 
+#6. Evaluate the Models 
 
 print("[INFO]  Test set accuracy..")
 

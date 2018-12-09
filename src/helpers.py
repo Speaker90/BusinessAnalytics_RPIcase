@@ -39,7 +39,7 @@ def FromDBtoDF(dbPath,query):
 
 
 def FeatureEncoder(df,header,dict,exhaustive):
-    """Encodes the values of a df-header according to a dictionary. If exhaustive is set false, then values not in the dictionary are set to 0."""
+    """This function encodes the values of a df-header according to a dictionary. If exhaustive is set false, then values not in the dictionary are set to 0."""
 
     if exhaustive:
         encodedValues = df[header].map(dict)
@@ -50,7 +50,7 @@ def FeatureEncoder(df,header,dict,exhaustive):
 
 
 def FuzzyFeatureEncoder(df,header,dict):
-    """Encodes the values of a df-header according to a fuzzy dictionary. Sets undefined values to 0."""
+    """This function encodes the values of a df-header according to a fuzzy dictionary. Sets undefined values to 0."""
 
     encodedValues = np.zeros((df.shape[0],1))
     #oop through the rows and match the dict keys
@@ -152,9 +152,12 @@ def PrintAccuracy(title,models):
 def SavePredictions(x,indices,models):
     """This function saves the predictions for each bugID of the test set to a file."""
 
+    #add bugIDs
     predictions = np.zeros((len(indices),2))
     predictions[:,0] = indices
     path = '../results/'
+    
+    #save the outcom of each model in csv file
     for i in range(len(models)-1):
         predictions[:,1] = models[i][1].predict(x).flatten()
         filename=models[i][0]+'Predictions.out'
