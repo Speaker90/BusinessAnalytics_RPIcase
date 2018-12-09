@@ -51,5 +51,5 @@ python Analysis.py -c -p
 python Analysis.py
 ```
 ## License
-[GNU GPLv3](https://choosealicense.com/licenses/gpl-3.0/#)
+[GNU GPLv3](License.md)
 
