@@ -8,6 +8,5 @@ sklearn
 tensorflow
 scipy
 pillow
-h5py
 keras
 
