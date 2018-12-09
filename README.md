@@ -33,7 +33,7 @@ cd ../src
 ```bash
 python Analysis.py -c
 ```
-#### For calibration with exploratory analysis of featurs
+#### For calibration with exploratory analysis of features
 ```bash
 python Analysis.py -c -p
 ```
